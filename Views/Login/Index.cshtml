@@ -1,0 +1,56 @@
+﻿@using RegistrationSystem.Domain.Models;
+@model LoginModel
+@{
+    Layout = "_LayoutLoggedOff";
+    ViewData["Title"] = "Login";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        @TempData["SuccessMessage"]
+    </div>
+
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<form asp-controller="Login" asp-action="LogIn" method="post">
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div class="form-group">
+        <label for="login">Login</label>
+        <input type="text" asp-for="Login" class="form-control" id="login">
+        @Html.ValidationMessageFor(x => x.Login)
+    </div>
+ 
+    <br />
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" asp-for="Password" class="form-control" id="Password">
+        @Html.ValidationMessageFor(x => x.Password)
+
+    </div>
+    <br />
+    
+        <p class="mb-4 text-sm mx-auto">
+            Forgotten your password?
+            <a asp-action="ResetPassword" asp-controller="Login" class="text-primary text-gradient font-weight-bold">Reset my password</a>
+        </p>
+     <div class="text-center">
+            <button type="submit" class="btn btn-success btn-block text-center">Log in</button>
+     </div>
+     
+    </>
+
+</form>

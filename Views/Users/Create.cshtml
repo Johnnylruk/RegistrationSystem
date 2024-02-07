@@ -1,0 +1,59 @@
+﻿@using RegistrationSystem.Domain.Models;
+@using RegistrationSystem.Domain.Models.Enum;
+@model UserModel
+@{
+    ViewData["Title"] = "Register User";
+}
+
+
+<div class="text-center">
+
+  <h1 class="display-4">Register User</h1>
+
+</div>
+
+
+<form asp-controller="Users" asp-action="Create" method="post">
+
+
+  <div class="form-group">
+        <label for="Name" class="form-label">Name</label>
+        <input type="text" asp-for="Name" class="form-control" placeholder="Type user name">
+        @Html.ValidationMessageFor(x => x.Name)
+  </div>
+  <br />
+   <div class="form-group">
+        <label for="Login" class="form-label">Login</label>
+        <input type="text" asp-for="Login" class="form-control" placeholder="Type user login">
+        @Html.ValidationMessageFor(x => x.Login)
+  </div>
+    <br />
+  <div class="form-group">
+        <label for="Email" class="form-label">Email</label>
+        <input type="text" asp-for="Email" class="form-control" placeholder="Type user email">
+        @Html.ValidationMessageFor(x => x.Email)
+  </div>
+
+    <div class="form-group">
+        <label for="name" class="form-label">Profile</label>
+        <select asp-for="Profile" class="form-control">
+            <option value="" >Select</option>
+            <option value="@EnumProfile.Admin">Administrator</option>
+            <option value="@EnumProfile.Standard">Standard</option>
+
+        </select>
+        @Html.ValidationMessageFor(x => x.Profile)
+
+    </div>
+
+    <div class="form-group">
+        <label for="Email" class="form-label">Password</label>
+        <input type="password" asp-for="Password" class="form-control" placeholder="Type user password">
+        @Html.ValidationMessageFor(x => x.Password)
+    </div>
+    <br />
+
+  <button type="submit" class="btn btn-primary btn-block">Add Contact</button>
+  <a class="btn btn-secondary btn-block" asp-controller="Users" asp-action="Index" role="button">Cancel</a>
+
+</form>

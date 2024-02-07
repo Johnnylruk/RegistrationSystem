@@ -1,0 +1,42 @@
+﻿@using RegistrationSystem.Domain.Models;
+@model ContactModel
+@{
+    ViewData["Title"] = "Edit Contact";
+}
+
+
+
+<div class="text-center">
+
+    <h1 class="display-4">Edit Contact</h1>
+
+</div>
+
+
+<form asp-controller="Contacts" asp-action="Edit" method="post">
+
+    <input type="hidden" asp-for="Id"/>
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <input type="text" asp-for="Name" class="form-control" placeholder="Type name">
+        @Html.ValidationMessageFor(x => x.Name)
+
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="text" asp-for="Email" class="form-control" placeholder="Type Email">
+        @Html.ValidationMessageFor(x => x.Email)
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="Mobile">Mobile</label>
+        <input type="text" asp-for="Mobile" class="form-control" placeholder="Type mobile">
+        @Html.ValidationMessageFor(x => x.Mobile)
+    </div>
+    <br />
+
+    <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+    <a class="btn btn-secondary btn-block" asp-controller="Contacts" asp-action="Index" role="button">Cancel</a>
+
+</form>

@@ -1,0 +1,105 @@
+﻿@using RegistrationSystem.Domain.Models;
+@using RegistrationSystem.Domain.Models.Enum;
+
+@model List<UserModel>
+@{
+    ViewData["Title"] = "Users List";
+}
+
+<div class="text-center">
+
+    <div class="d-grid gap-2 d0md-flex justify-content-md-start">
+        <a class="btn btn-success" role="button" asp-controller="Users" asp-action="Create">Add new user</a>
+    </div>
+
+    <br/>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+            @TempData["SuccessMessage"]
+        </div>
+
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <br />
+
+    <h1 class="display-4">Users Lists</h1>
+    
+</div>
+
+    <table id="table-users" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Login</th>
+                <th scope="col">Email</th>
+                <th scope="col">Profile</th>
+                <th scope="col">Total of Contacts</th>
+                <th scope="col">Register Date</th>
+                <th scope="col"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var users in Model)
+                {
+                    <tr>
+                        <th scope="row">@users.Id</th>
+                        <td>@users.Name</td>
+                        <td>@users.Login</td>
+                        <td>@users.Email</td>
+                        <td>@(users.Profile == EnumProfile.Admin ? "Administrator" : "Standard")</td>
+                        <td>
+                        <div class="text-center">
+
+                            <a href="#ContactsUserModal" user-id="@users.Id" data-bs-toggle="modal" class="btn btn-success btn-sm btn-total-contacts">
+                        @(users.Contacts != null && users.Contacts.Any() ? users.Contacts.Count() : 0)
+                            </a>
+                            </div>
+                        </td>
+                        <td>@users.DateRegistered</td>
+                        <td>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end" role="group">
+                                <a role="button" class="btn btn-warning me-md-2" type="button" asp-route-id="@users.Id" asp-controller="Users" asp-action="Edit">Edit</a>
+                                <a role="button" class="btn btn-danger" type="button" asp-route-id="@users.Id" asp-controller="Users" asp-action="DeleteConfirm">Delete</a>
+                            </div>
+                        </td>
+
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="odd"><td valign="top" colspan="5">No users has been found.</td></tr>
+            }
+                        </tbody>
+                    </table>
+
+
+                <div id="ContactsUserModal" class="modal text-center" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-center">Contacts List</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="UserContactList"></div>
+                
+                            </div>
+                      
+                        </div>
+                    </div>
+                </div>

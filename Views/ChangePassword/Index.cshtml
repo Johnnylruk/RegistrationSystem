@@ -1,0 +1,56 @@
+﻿@using RegistrationSystem.Domain.Models;
+@model ChangePasswordModel
+@{
+    ViewData["Title"] = "Change Password";
+}
+
+
+<div class="text-center">
+
+    <h1 class="display-4">Change Your Password</h1>
+
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        @TempData["SuccessMessage"]
+    </div>
+
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<form asp-controller="ChangePassword" asp-action="Changepwd" method="post">
+
+    <br />
+    <div class="form-group">
+        <label for="CurrentPassword" class="form-label">Current Password</label>
+        <input type="password" asp-for="CurrentPassword" class="form-control" placeholder="Type the user current password">
+        @Html.ValidationMessageFor(x => x.CurrentPassword)
+    </div>
+
+    <div class="form-group">
+        <label for="NewPassword" class="form-label">New Password</label>
+        <input type="password" asp-for="NewPassword" class="form-control" placeholder="Type the user new password">
+        @Html.ValidationMessageFor(x => x.NewPassword)
+    </div>
+
+    <div class="form-group">
+        <label for="ConfirmNewPassword" class="form-label">Confirm New Password</label>
+        <input type="password" asp-for="ConfirmNewPassword" class="form-control" placeholder="Confirm the user new password">
+        @Html.ValidationMessageFor(x => x.ConfirmNewPassword)
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-success btn-block">Change Password</button>
+    <a class="btn btn-secondary btn-block" asp-controller="Home" asp-action="Index" role="button">Cancel</a>
+
+</form>
